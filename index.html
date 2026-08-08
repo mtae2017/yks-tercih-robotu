@@ -50,13 +50,13 @@
                     <!-- Şehir Filtresi -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Şehir Arama</label>
-                        <input type="text" id="sehir-filter" oninput="filtrele()" placeholder="Örn: İstanbul, Ankara" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="sehir-filter" oninput="filtrele()" placeholder="Örn: İstanbul, Ankara, Gaziantep" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
 
                     <!-- Bölüm / Üniversite Arama -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Bölüm / Üniversite</label>
-                        <input type="text" id="bolum-filter" oninput="filtrele()" placeholder="Örn: Bilgisayar, Tıp" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="bolum-filter" oninput="filtrele()" placeholder="Örn: Bilgisayar, Tıp, Hukuk" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                     </div>
                 </div>
 
@@ -83,7 +83,7 @@
                     </div>
 
                     <div id="my-list-container" class="space-y-2 max-h-56 overflow-y-auto pr-1 text-xs">
-                        <p class="text-slate-500 italic text-center py-6">Henüz listenize bölüm eklemediniz. Aşağıdaki tablodan "+" butonuna basarak ekleyebilirsiniz.</p>
+                        <p class="text-slate-500 italic text-center py-6">Henüz listenize bölüm eklemediniz.</p>
                     </div>
                 </div>
 
@@ -144,31 +144,19 @@
 
     <!-- JavaScript Engine -->
     <script>
-        // Expanded Database (Devlet & Vakıf mix)
-        const database = [
-            { id: 1, uni: "İstanbul Teknik Üniv.", bolum: "Bilgisayar Mühendisliği", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 1450 },
-            { id: 2, uni: "Hacettepe Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Ankara", tur: "SAY", uTür: "Devlet", rank: 2100 },
-            { id: 3, uni: "ODTÜ", bolum: "Elektrik-Elektronik Müh.", sehir: "Ankara", tur: "SAY", uTür: "Devlet", rank: 2800 },
-            { id: 4, uni: "Boğaziçi Üniversitesi", bolum: "Endüstri Mühendisliği", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 3200 },
-            { id: 5, uni: "Koç Üniversitesi", bolum: "Tıp Fakültesi (%100 Burslu)", sehir: "İstanbul", tur: "SAY", uTür: "Vakıf", rank: 80 },
-            { id: 6, uni: "Bilkent Üniversitesi", bolum: "Bilgisayar Müh. (%100 Burslu)", sehir: "Ankara", tur: "SAY", uTür: "Vakıf", rank: 450 },
-            { id: 7, uni: "İstanbul Üniversitesi", bolum: "Tıp Fakültesi (İngilizce)", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 4500 },
-            { id: 8, uni: "Gazi Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Ankara", tur: "SAY", uTür: "Devlet", rank: 8900 },
-            { id: 9, uni: "Ankara Üniversitesi", bolum: "Hukuk Fakültesi", sehir: "Ankara", tur: "EA", uTür: "Devlet", rank: 4800 },
-            { id: 10, uni: "Galatasaray Üniv.", bolum: "Hukuk Fakültesi", sehir: "İstanbul", tur: "EA", uTür: "Devlet", rank: 350 },
-            { id: 11, uni: "Dokuz Eylül Üniv.", bolum: "Hukuk Fakültesi", sehir: "İzmir", tur: "EA", uTür: "Devlet", rank: 12000 },
-            { id: 12, uni: "Ege Üniversitesi", bolum: "Diş Hekimliği", sehir: "İzmir", tur: "SAY", uTür: "Devlet", rank: 18500 },
-            { id: 13, uni: "Marmara Üniversitesi", bolum: "Bilgisayar Mühendisliği", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 22000 },
-            { id: 14, uni: "Yıldız Teknik Üniv.", bolum: "Makine Mühendisliği", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 28500 },
-            { id: 15, uni: "Mimar Sinan Üniv.", bolum: "Mimarlık", sehir: "İstanbul", tur: "SAY", uTür: "Devlet", rank: 38000 },
-            { id: 16, uni: "Anadolu Üniversitesi", bolum: "Yazılım Mühendisliği", sehir: "Eskişehir", tur: "SAY", uTür: "Devlet", rank: 45000 },
-            { id: 17, uni: "Çukurova Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Adana", tur: "SAY", uTür: "Devlet", rank: 14200 },
-            { id: 18, uni: "Gaziantep Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Gaziantep", tur: "SAY", uTür: "Devlet", rank: 19800 },
-            { id: 19, uni: "TOBB ETÜ", bolum: "Yapay Zeka Müh. (%100 Burslu)", sehir: "Ankara", tur: "SAY", uTür: "Vakıf", rank: 3100 },
-            { id: 20, uni: "İstanbul Bilgi Üniv.", bolum: "Psikoloji (%100 Burslu)", sehir: "İstanbul", tur: "EA", uTür: "Vakıf", rank: 8500 }
-        ];
-
+        let database = [];
         let myList = JSON.parse(localStorage.getItem('yks_tercih_listem')) || [];
+
+        // Fetch Data from JSON File
+        async function loadDatabase() {
+            try {
+                const res = await fetch('universiteler.json');
+                database = await res.json();
+                filtrele();
+            } catch (e) {
+                console.error("Veri yüklenemedi:", e);
+            }
+        }
 
         function filtrele() {
             const userRank = parseInt(document.getElementById('user-rank').value) || null;
@@ -291,7 +279,7 @@
 
         window.onload = function() {
             renderMyList();
-            filtrele();
+            loadDatabase();
         };
     </script>
 </body>
