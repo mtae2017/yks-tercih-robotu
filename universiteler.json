@@ -99,7 +99,6 @@
   { "id": 98, "uni": "Başkent Üniversitesi", "bolum": "Hukuk Fakültesi (%100 Burslu)", "sehir": "Ankara", "tur": "EA", "uTür": "Vakıf", "rank": 4200 },
   { "id": 99, "uni": "Başkent Üniversitesi", "bolum": "Tıp Fakültesi (%100 Burslu)", "sehir": "Ankara", "tur": "SAY", "uTür": "Vakıf", "rank": 3500 },
   { "id": 100, "uni": "Batman Üniversitesi", "bolum": "Petrol ve Doğalgaz Mühendisliği", "sehir": "Batman", "tur": "SAY", "uTür": "Devlet", "rank": 180000 }
-][
   { "id": 101, "uni": "Bayburt Üniversitesi", "bolum": "İnşaat Mühendisliği", "sehir": "Bayburt", "tur": "SAY", "uTür": "Devlet", "rank": 290000 },
   { "id": 102, "uni": "Beykent Üniversitesi", "bolum": "Hukuk Fakültesi (%100 Burslu)", "sehir": "İstanbul", "tur": "EA", "uTür": "Vakıf", "rank": 14200 },
   { "id": 103, "uni": "Beykent Üniversitesi", "bolum": "Tıp Fakültesi (%100 Burslu)", "sehir": "İstanbul", "tur": "SAY", "uTür": "Vakıf", "rank": 17800 },
