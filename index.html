@@ -4,13 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="mX0Knj2KaZBOFZZVqyVL-4lVLQ27l4CRtPeqz-NDzmI" />
-    <title>YKS 2026 Tercih Robotu & Akıllı Tercih Listesi</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>YKS 2026 Tercih Robotu & Akıllı Tercih Listesi Oluşturucu</title>
+    <meta name="title" content="YKS 2026 Tercih Robotu & Akıllı Tercih Listesi Oluşturucu">
+    <meta name="description" content="Sıralamanıza en uygun üniversite bölümlerini bulun, kendi 24'lük YKS tercih listenizi oluşturun, PDF veya yazıcı çıktısı alın!">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yks-tercih-robotu.vercel.app/">
+    <meta property="og:title" content="YKS 2026 Tercih Robotu & Akıllı Tercih Listesi">
+    <meta property="og:description" content="Sıralamanıza uygun bölümleri süzün, kendi 24'lük tercih listenizi oluşturup çıktı alın. Ücretsiz ve reklamsız!">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yks-tercih-robotu.vercel.app/">
+    <meta property="twitter:title" content="YKS 2026 Tercih Robotu & Akıllı Tercih Listesi">
+    <meta property="twitter:description" content="Sıralamanıza uygun bölümleri süzün, kendi 24'lük tercih listenizi oluşturup çıktı alın.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen py-6 px-4 font-sans antialiased">
 
-    <div class="max-w-6xl mx-auto space-y-6">
+    <!-- Google Analytics (Kendi G-XXXXXXXXXX Kodunu Buraya Ekleyebilirsin) -->
+    <!-- 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen py-6 px-4 font-sans antialiased flex flex-col justify-between">
+
+    <div class="max-w-6xl mx-auto w-full space-y-6">
         
         <!-- Header -->
         <header class="text-center space-y-2">
@@ -123,20 +153,29 @@
             </div>
         </section>
 
-        <!-- Redirect Card back to Net Panel -->
-        <div class="mt-8 text-center">
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-left">
-                    <h4 class="text-sm font-bold text-indigo-400">📈 Sınava mı Hazırlanıyorsunuz?</h4>
-                    <p class="text-xs text-slate-400 mt-0.5">Deneme netlerinizi tarih tarih kaydedip grafiklerle gelişimizi takip edin.</p>
-                </div>
-                <a href="https://yks-net-hesaplayici.vercel.app" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition whitespace-nowrap">
-                    Net Takip Panelini Aç →
-                </a>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Cross Promotion Footer -->
+    <footer class="mt-12 pt-6 border-t border-slate-800/80 text-center">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="https://yks-net-hesaplayici.vercel.app" target="_blank" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-4 rounded-2xl transition text-left flex items-center gap-3 group">
+                <div class="text-2xl bg-indigo-500/10 p-2.5 rounded-xl text-indigo-400 group-hover:scale-110 transition">📈</div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-200 group-hover:text-indigo-400 transition">YKS Net Takip Paneli</h4>
+                    <p class="text-[11px] text-slate-400">Deneme netlerinizi kaydedin, gelişim grafiğinizi izleyin.</p>
+                </div>
+            </a>
+            
+            <a href="https://qr-kod-olusturucu.vercel.app" target="_blank" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-4 rounded-2xl transition text-left flex items-center gap-3 group">
+                <div class="text-2xl bg-emerald-500/10 p-2.5 rounded-xl text-emerald-400 group-hover:scale-110 transition">⚡</div>
+                <div>
+                    <h4 class="text-xs font-bold text-slate-200 group-hover:text-emerald-400 transition">Özel Tasarım QR Kod Oluşturucu</h4>
+                    <p class="text-[11px] text-slate-400">Logolu, renkli ve Wi-Fi uyumlu QR kodlar tasarlayın.</p>
+                </div>
+            </a>
+        </div>
+        <p class="text-[10px] text-slate-600 mt-6">© 2026 Akıllı Web Araçları. Tüm hakları saklıdır.</p>
+    </footer>
 
     <!-- JavaScript Engine -->
     <script>
