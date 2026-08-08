@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YKS 2026 Tercih Robotu - Başarı Sıralamasına Göre Üniversite Arama</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen py-8 px-4 font-sans antialiased">
+
+    <div class="max-w-5xl mx-auto space-y-6">
+        
+        <!-- Header -->
+        <header class="text-center space-y-2">
+            <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400">
+                YKS 2026 Tercih Robotu
+            </h1>
+            <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto">
+                Başarı sıranıza, şehir ve bölüm tercihlerinize en uygun üniversite programlarını saniyeler içinde listeleyin.
+            </p>
+        </header>
+
+        <!-- Filter Card -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Arama & Filtreleme</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                <!-- Rank Input -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Başarı Sıranız</label>
+                    <input type="number" id="user-rank" placeholder="Örn: 25000" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+
+                <!-- Puan Türü -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Puan Türü</label>
+                    <select id="puan-turu" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <option value="SAY">Sayısal (SAY)</option>
+                        <option value="EA">Eşit Ağırlık (EA)</option>
+                        <option value="SÖZ">Sözel (SÖZ)</option>
+                        <option value="DİL">Dil (DİL)</option>
+                    </select>
+                </div>
+
+                <!-- Şehir Filtresi -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Şehir Arama</label>
+                    <input type="text" id="sehir-filter" placeholder="Örn: İstanbul, Ankara" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+
+                <!-- Bölüm Arama -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Bölüm / Üniversite</label>
+                    <input type="text" id="bolum-filter" placeholder="Örn: Bilgisayar, Tıp" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+            </div>
+
+            <div class="flex gap-3 pt-2">
+                <button onclick="filtrele()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs shadow-md transition">
+                    Programları Listeleyin
+                </button>
+                <button onclick="sifirla()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 rounded-xl text-xs transition">
+                    Filtreleri Sıfırla
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Table -->
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Uygun Üniversite Programları (<span id="count-display" class="text-emerald-400">0</span>)
+                </h2>
+                <span class="text-[10px] text-slate-500">2025 ÖSYM Taban Verilerine Göre Hazırlanmıştır</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-slate-300">
+                    <thead class="text-[10px] text-slate-500 bg-slate-950 uppercase tracking-wider">
+                        <tr>
+                            <th class="px-3 py-2.5 rounded-l-lg">Üniversite</th>
+                            <th class="px-3 py-2.5">Bölüm / Program</th>
+                            <th class="px-3 py-2.5 text-center">Şehir</th>
+                            <th class="px-3 py-2.5 text-center">Tür</th>
+                            <th class="px-3 py-2.5 text-center">2025 Sıralama</th>
+                            <th class="px-3 py-2.5 text-right rounded-r-lg">Durum Analizi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body" class="divide-y divide-slate-800/50">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Sample University Program Dataset
+        const database = [
+            { uni: "İstanbul Teknik Üniv.", bolum: "Bilgisayar Mühendisliği", sehir: "İstanbul", tur: "SAY", rank: 1450 },
+            { uni: "Hacettepe Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Ankara", tur: "SAY", rank: 2100 },
+            { uni: "ODTÜ", bolum: "Elektrik-Elektronik Müh.", sehir: "Ankara", tur: "SAY", rank: 2800 },
+            { uni: "Boğaziçi Üniversitesi", bolum: "Endüstri Mühendisliği", sehir: "İstanbul", tur: "SAY", rank: 3200 },
+            { uni: "İstanbul Üniversitesi", bolum: "Tıp Fakültesi (İngilizce)", sehir: "İstanbul", tur: "SAY", rank: 4500 },
+            { uni: "Gazi Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Ankara", tur: "SAY", rank: 8900 },
+            { uni: "Ege Üniversitesi", bolum: "Diş Hekimliği", sehir: "İzmir", tur: "SAY", rank: 18500 },
+            { uni: "Marmara Üniversitesi", bolum: "Bilgisayar Mühendisliği", sehir: "İstanbul", tur: "SAY", rank: 22000 },
+            { uni: "Yıldız Teknik Üniv.", bolum: "Makine Mühendisliği", sehir: "İstanbul", tur: "SAY", rank: 28500 },
+            { uni: "Dokuz Eylül Üniv.", bolum: "Hukuk Fakültesi", sehir: "İzmir", tur: "EA", rank: 12000 },
+            { uni: "Ankara Üniversitesi", bolum: "Hukuk Fakültesi", sehir: "Ankara", tur: "EA", rank: 4800 },
+            { uni: "Galatasaray Üniv.", bolum: "Uluslararası İlişkiler", sehir: "İstanbul", tur: "EA", rank: 1100 },
+            { uni: "Mimar Sinan Üniv.", bolum: "Mimarlık", sehir: "İstanbul", tur: "SAY", rank: 38000 },
+            { uni: "Anadolu Üniversitesi", bolum: "Yazılım Mühendisliği", sehir: "Eskişehir", tur: "SAY", rank: 45000 },
+            { uni: "Çukurova Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Adana", tur: "SAY", rank: 14200 },
+            { uni: "Gaziantep Üniversitesi", bolum: "Tıp Fakültesi", sehir: "Gaziantep", tur: "SAY", rank: 19800 }
+        ];
+
+        function filtrele() {
+            const userRank = parseInt(document.getElementById('user-rank').value) || null;
+            const pTur = document.getElementById('puan-turu').value;
+            const sehirText = document.getElementById('sehir-filter').value.toLowerCase().trim();
+            const bolumText = document.getElementById('bolum-filter').value.toLowerCase().trim();
+
+            const filtered = database.filter(item => {
+                const matchTur = item.tur === pTur;
+                const matchSehir = !sehirText || item.sehir.toLowerCase().includes(sehirText);
+                const matchBolum = !bolumText || item.bolum.toLowerCase().includes(bolumText) || item.uni.toLowerCase().includes(bolumText);
+                return matchTur && matchSehir && matchBolum;
+            });
+
+            renderResults(filtered, userRank);
+        }
+
+        function renderResults(data, userRank) {
+            const tbody = document.getElementById('results-body');
+            document.getElementById('count-display').innerText = data.length;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500 italic">Kriterlerinize uygun üniversite programı bulunamadı.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = data.map(item => {
+                let statusBadge = `<span class="text-slate-400">-</span>`;
+                if (userRank) {
+                    const diff = item.rank - userRank;
+                    if (diff >= 5000) {
+                        statusBadge = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold">Çok Yüksek Şans</span>`;
+                    } else if (diff >= -2000 && diff < 5000) {
+                        statusBadge = `<span class="bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-0.5 rounded-full font-semibold">Muhtemel Gelir</span>`;
+                    } else {
+                        statusBadge = `<span class="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-0.5 rounded-full font-semibold">Riskli Tercih</span>`;
+                    }
+                }
+
+                return `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="px-3 py-2.5 font-bold text-slate-200">${item.uni}</td>
+                        <td class="px-3 py-2.5 font-medium text-emerald-300">${item.bolum}</td>
+                        <td class="px-3 py-2.5 text-center text-slate-400">${item.sehir}</td>
+                        <td class="px-3 py-2.5 text-center font-mono text-cyan-400">${item.tur}</td>
+                        <td class="px-3 py-2.5 text-center font-bold text-amber-300">${item.rank.toLocaleString('tr-TR')}</td>
+                        <td class="px-3 py-2.5 text-right">${statusBadge}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function sifirla() {
+            document.getElementById('user-rank').value = '';
+            document.getElementById('sehir-filter').value = '';
+            document.getElementById('bolum-filter').value = '';
+            filtrele();
+        }
+
+        window.onload = function() {
+            filtrele();
+        };
+    </script>
+</body>
+</html>
